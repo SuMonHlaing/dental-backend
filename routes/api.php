@@ -14,7 +14,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [UserAuthController::class, 'register']);
 Route::post('/login', [UserAuthController::class, 'login']);
 
-// API Routes for Doctors
 
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -25,10 +24,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/appointments/list', [FrontendController::class, 'appointmentList']);
 });
 
-
+// API Routes for Doctors
 Route::get('/doctors', [FrontendController::class, 'doctors']);
 Route::get('/doctors/{id}', [FrontendController::class, 'showDoctor']);
 Route::get('/popular/doctors', [FrontendController::class, 'popularDoctors']);
 
 Route::get('/services', [FrontendController::class, 'services']);
 Route::get('/services/{id}', [FrontendController::class, 'showService']);
+Route::get('/popular/services', [FrontendController::class, 'popularServices']);

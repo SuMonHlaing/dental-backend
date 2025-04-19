@@ -28,6 +28,13 @@ class FrontendController extends Controller
 
         return DoctorsResource::collection($doctors);
     }
+    public function popularServices()
+    {
+        //order by asc
+        $services = Service::orderBy('id', 'desc')->take(6)->get();
+
+        return ServicesResource::collection($services);
+    }
     public function services()
     {
         //order by asc
