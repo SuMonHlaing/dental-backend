@@ -8,6 +8,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>User ID</th>
                     <th>User </th>
                     <th>Doctor </th>
                     <th>Full Name</th>
@@ -21,6 +22,7 @@
             <tbody>
                 @foreach ($appointments as $booking)
                     <tr>
+                        <td>{{ $booking->user->id }}</td>
                         <td>{{ $booking->user->name }}</td>
                         <td>{{ $booking->doctor->name }}</td>
                         <td>{{ $booking->full_name }}</td>
