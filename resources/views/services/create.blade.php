@@ -1,56 +1,66 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <a href="{{ route('services.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to List</a>
+        <h3 class="mb-0">Create New Service</h3>
+        <a href="{{ route('services.index') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Back to List
+        </a>
     </div>
+
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
     @if ($errors->any())
         <div class="alert alert-danger">
-            <ul>
+            <ul class="mb-0">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
         </div>
     @endif
-    <div class="mb-3">
-        <h3 class="mb-3">Create New Service</h3>
-        <form action="{{ route('services.store') }}" method="POST" enctype="multipart/form-data" class="card p-4 shadow-sm">
+
+    <div class="card shadow-sm">
+        <form action="{{ route('services.store') }}" method="POST" enctype="multipart/form-data" class="p-4">
             @csrf
 
             <div class="mb-3">
-                <label>Name</label>
-                <input type="text" name="name" class="form-control" placeholder="Enter service name">
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" placeholder="Enter service name" value="{{ old('name') }}">
             </div>
 
             <div class="mb-3">
-                <label>Description</label>
-                <textarea name="description" class="form-control" placeholder="Service details..."></textarea>
+                <label class="form-label">Description</label>
+                <textarea name="description" class="form-control" placeholder="Service details...">{{ old('description') }}</textarea>
             </div>
 
-          
-
             <div class="mb-3">
-                <label>Doctors</label>
-                <div class="form-check">
+                <label class="form-label">Doctors</label>
+                <div class="row">
                     @foreach ($doctors as $doctor)
-                        <div class="mb-2">
-                            <input type="checkbox" name="doctor_ids[]" value="{{ $doctor->id }}" class="form-check-input"
-                                id="doctor_{{ $doctor->id }}">
-                            <label for="doctor_{{ $doctor->id }}" class="form-check-label">{{ $doctor->name }}</label>
+                        <div class="col-md-4 mb-2">
+                            <div class="form-check">
+                                <input type="checkbox" name="doctor_ids[]" value="{{ $doctor->id }}" class="form-check-input" id="doctor_{{ $doctor->id }}">
+                                <label for="doctor_{{ $doctor->id }}" class="form-check-label">{{ $doctor->name }}</label>
+                            </div>
                         </div>
                     @endforeach
                 </div>
             </div>
 
             <div class="mb-3">
-                <label>Icon (image)</label>
+                <label class="form-label">Icon (image)</label>
                 <input type="file" name="icon" class="form-control">
             </div>
 
-            <button class="btn btn-success"><i class="fas fa-save"></i> Save Service</button>
+            <div class="mt-4 text-end">
+                <button class="btn btn-success">
+                    <i class="fas fa-save"></i> Save Service
+                </button>
+            </div>
         </form>
-    @endsection
+    </div>
+</div>
+@endsection

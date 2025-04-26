@@ -1,10 +1,9 @@
 <?php
 
-use App\Http\Controllers\Api\FrontendController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\Api\FrontendController;
 use App\Http\Controllers\Api\UserAuthController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -32,3 +31,4 @@ Route::get('/popular/doctors', [FrontendController::class, 'popularDoctors']);
 Route::get('/services', [FrontendController::class, 'services']);
 Route::get('/services/{id}', [FrontendController::class, 'showService']);
 Route::get('/popular/services', [FrontendController::class, 'popularServices']);
+Route::delete('/appointments/{id}', [BookingController::class, 'destroy'])->name('bookings.destroy');
