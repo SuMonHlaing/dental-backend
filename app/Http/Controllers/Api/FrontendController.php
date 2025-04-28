@@ -17,17 +17,36 @@ class FrontendController extends Controller
     public function popularDoctors()
     {
         //order by asc
-        $doctors = Doctor::orderBy('id', 'desc')->take(3)->get();
+        $doctors = Doctor::orderBy('id', 'desc')
+            ->take(3)
+            ->withCount('appointments')
+            ->get()
+            ->map(function ($doctor) {
+                $doctor->image = asset('storage/' . $doctor->image);
+                return $doctor;
+            });
 
-        return DoctorsResource::collection($doctors);
+        return response()->json([
+            'doctor' => $doctors,
+        ], 201);
+        // return DoctorsResource::collection($doctors);
     }
     public function doctors()
     {
         //order by asc
-        $doctors = Doctor::orderBy('id', 'desc')->get();
+        $doctors = Doctor::orderBy('id', 'desc')
+            ->withCount('appointments')
+            ->get()
+            ->map(function ($doctor) {
+                $doctor->image = asset('storage/' . $doctor->image);
+                return $doctor;
+            });
 
-        return DoctorsResource::collection($doctors);
+        return response()->json([
+            'doctor' => $doctors,
+        ], 201);
     }
+    
     public function popularServices()
     {
         //order by asc
@@ -38,14 +57,20 @@ class FrontendController extends Controller
     public function services()
     {
         //order by asc
-        $services = Service::orderBy('id', 'desc')->with('doctor')->get();
+        $services = Service::orderBy('id', 'desc')
+            ->with(['doctors' => function($query) {
+                $query->withCount('appointments');
+            }])->get();
 
         return ServicesResource::collection($services);
     }
     public function showService($id)
     {
         // Attempt to find the service with its associated doctors
-        $service = Service::with('doctors')->find($id);
+        // $service = Service::with('doctors')->find($id);
+        $service = Service::with(['doctors' => function($query) {
+            $query->withCount('appointments');
+        }])->find($id);        
 
         // Check if the service exists
         if (!$service) {
@@ -60,7 +85,7 @@ class FrontendController extends Controller
 
     public function showDoctor($id)
     {
-        $doctor = Doctor::findOrFail($id);
+        $doctor = Doctor::withCount('appointments')->findOrFail($id);
         return new DoctorsResource($doctor);
     }
     public function appointment(Request $request)

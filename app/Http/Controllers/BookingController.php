@@ -9,7 +9,9 @@ class BookingController extends Controller
 {
     public function index()
     {
-        $appointments = Appointment::with('user')->with('doctor')->get();
+        $appointments = \App\Models\Appointment::with('user', 'doctor')
+            ->orderBy('created_at', 'desc') // Sort latest to oldest
+            ->get();
         return view('bookings.index', compact('appointments'));
     }
 

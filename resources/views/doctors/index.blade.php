@@ -3,15 +3,15 @@
 @section('content')
     <div class="container py-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-                        <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-secondary">
                 <i class="fas fa-arrow-left"></i> Dashboard
             </a>
             <h3 class="mb-0">Doctors</h3>
             <div class="mb-3 text-end">
-            <a href="{{ route('doctors.create') }}" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Add Doctor
-            </a>
-        </div>
+                <a href="{{ route('doctors.create') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Doctor
+                </a>
+            </div>
         </div>
 
         @if (session('success'))
@@ -30,8 +30,6 @@
             </div>
         @endif
 
-     
-
         <div class="card shadow-sm">
             <div class="card-body p-0">
                 <table class="table table-hover align-middle mb-0">
@@ -40,6 +38,8 @@
                             <th>#</th>
                             <th>Photo</th>
                             <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
                             <th>Experience</th>
                             <th class="text-end">Actions</th>
                         </tr>
@@ -57,10 +57,10 @@
                                         </span>
                                     @endif
                                 </td>
-                                <td>
-                                    <strong>{{ $doctor->name }}</strong>
-                                </td>
-                                <td>{{ $doctor->experience }}</td>
+                                <td><strong>{{ $doctor->name }}</strong></td>
+                                <td>{{ $doctor->email ?? '-' }}</td>
+                                <td>{{ $doctor->phone ?? '-' }}</td>
+                                <td>{{ $doctor->experience ?? '-' }}</td>
                                 <td class="text-end">
                                     <a href="{{ route('doctors.show', $doctor->id) }}" class="btn btn-sm btn-outline-info" title="View">
                                         <i class="fas fa-eye"></i>
@@ -79,7 +79,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center text-muted py-4">No doctors found.</td>
+                                <td colspan="11" class="text-center text-muted py-4">No doctors found.</td>
                             </tr>
                         @endforelse
                     </tbody>

@@ -25,6 +25,7 @@ class DoctorsResource extends JsonResource
             'working_hours' => $this->working_hours ?? 'N/A',
             'certifications' => $this->certifications ?? 'N/A',
             'about' => $this->about ?? 'N/A',
+            'appointments_count' => $this->appointments_count ?? 0,
         ];
     }
 }
