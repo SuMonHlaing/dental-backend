@@ -64,6 +64,11 @@
                         <img src="{{ asset('storage/' . $doctor->image) }}" width="100" class="mt-2 img-thumbnail">
                     @endif
                 </div>
+                <div class="col-md-6">
+                    <label class="form-label">Bookings Count</label>
+                    <input type="number" name="bookings_count" class="form-control" 
+                        value="{{ isset($bookings_count) ? $bookings_count : 0 }}">
+                </div>
             </div>
 
             <div class="mt-4 text-end">

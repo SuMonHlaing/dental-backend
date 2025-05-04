@@ -58,6 +58,12 @@
                             <th>About:</th>
                             <td>{{ $doctor->about }}</td>
                         </tr>
+                        <tr>
+                            <th>Bookings: Count</th>
+                            <td>
+                                {{ $doctor->bookings_count }}
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>

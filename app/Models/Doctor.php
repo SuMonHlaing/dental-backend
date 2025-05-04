@@ -19,6 +19,7 @@ class Doctor extends Model
         'working_hours',
         'certifications',
         'about',
+        'bookings_count'
     ];
     public function services()
     {

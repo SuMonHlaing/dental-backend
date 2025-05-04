@@ -41,6 +41,7 @@
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Experience</th>
+                            <th>Bookings Count</th>
                             <th class="text-end">Actions</th>
                         </tr>
                     </thead>
@@ -61,6 +62,7 @@
                                 <td>{{ $doctor->email ?? '-' }}</td>
                                 <td>{{ $doctor->phone ?? '-' }}</td>
                                 <td>{{ $doctor->experience ?? '-' }}</td>
+                                <td>{{ $doctor->bookings_count ?? '-' }}</td>
                                 <td class="text-end">
                                     <a href="{{ route('doctors.show', $doctor->id) }}" class="btn btn-sm btn-outline-info" title="View">
                                         <i class="fas fa-eye"></i>
@@ -79,7 +81,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="11" class="text-center text-muted py-4">No doctors found.</td>
+                                <td colspan="12" class="text-center text-muted py-4">No doctors found.</td>
                             </tr>
                         @endforelse
                     </tbody>

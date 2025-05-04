@@ -50,7 +50,7 @@ class FrontendController extends Controller
     public function popularServices()
     {
         //order by asc
-        $services = Service::orderBy('id', 'desc')->take(6)->get();
+        $services = Service::orderBy('id', 'desc')->take(3)->get();
 
         return ServicesResource::collection($services);
     }
@@ -99,6 +99,19 @@ class FrontendController extends Controller
             'preferred_time' => 'required',
             'notes' => 'nullable|string|max:255',
         ]);
+
+        // Check if doctor already has maximum appointments for the preferred date
+        $count = Appointment::where('doctor_id', $request->doctor_id)
+            ->where('preferred_date', $request->preferred_date)
+            ->count();
+
+        $booking_count = Doctor::where('id', $request->doctor_id)->value('bookings_count');
+
+        if ($count >= $booking_count) {
+            return response()->json([
+                'message' => 'This doctor already has maximum appointments for the selected date.',
+            ], 422);
+        }
 
         $appointment = Appointment::create([
             'user_id' => auth()->id(), // Automatically assign logged-in user's ID

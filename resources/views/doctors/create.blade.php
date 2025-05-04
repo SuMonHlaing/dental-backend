@@ -63,6 +63,10 @@
                     <label class="form-label">Image</label>
                     <input type="file" name="image" class="form-control">
                 </div>
+                <div class="col-md-6">
+                    <label class="form-label"> Bookings Count</label>
+                    <input type="number" name="bookings_count" class="form-control" value="{{ old('bookings_count', 0) }}">
+                </div>
             </div>
             <div class="mt-4 text-end">
                 <button class="btn btn-success">

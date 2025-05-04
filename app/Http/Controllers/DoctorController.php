@@ -31,6 +31,7 @@ class DoctorController extends Controller
             'certifications' => 'nullable|string',
             'about' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'bookings_count' => 'nullable|integer',
         ]);
 
         $imagePath = null;
@@ -48,6 +49,7 @@ class DoctorController extends Controller
             'certifications' => $request->certifications,
             'about' => $request->about,
             'image' => $imagePath,
+            'bookings_count' => $request->bookings_count,
         ]);
 
         return redirect()->route('doctors.index')->with('success', 'Doctor created successfully!');
@@ -66,7 +68,6 @@ class DoctorController extends Controller
     public function update(Request $request, $id)
     {
         $doctor = Doctor::findOrFail($id);
-
         $request->validate([
             'name' => 'required|string|max:255',
             'experience' => 'nullable|string',
@@ -77,6 +78,7 @@ class DoctorController extends Controller
             'certifications' => 'nullable|string',
             'about' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'bookings_count' => 'nullable|integer',
         ]);
 
         $imagePath = $doctor->image;
@@ -102,6 +104,7 @@ class DoctorController extends Controller
             'certifications' => $request->certifications,
             'about' => $request->about,
             'image' => $imagePath,
+            'bookings_count' => $request->bookings_count,
         ]);
 
         return redirect()->route('doctors.index')->with('success', 'Doctor updated successfully!');
