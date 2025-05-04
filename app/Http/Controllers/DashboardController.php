@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $serviceCount = Service::count();
         $doctorCount = Doctor::count();
         $totalBookingCount = Appointment::count();
-        $totalUserCount = User::count();
+        $totalUserCount = User::where('role', 'user')->count();
 
         // Filtered counts
         $filteredBookingCount = Appointment::whereDate('preferred_date', $filteredDate)->count();
