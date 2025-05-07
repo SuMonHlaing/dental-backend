@@ -24,6 +24,11 @@ class DashboardController extends Controller
         $filteredBookingCount = Appointment::whereDate('preferred_date', $filteredDate)->count();
         $filteredUserCount = User::whereDate('created_at', $filteredDate)->count();
 
+        // Count users with 'user' role created on the filtered date
+        $filteredUserRoleCount = \App\Models\User::where('role', 'user')
+            ->whereDate('created_at', $filteredDate)
+            ->count();
+
         // Doctor booking counts for filtered date
         $doctors = Doctor::withCount(['appointments as booking_count' => function ($query) use ($filteredDate) {
             $query->whereDate('preferred_date', $filteredDate);
@@ -37,6 +42,7 @@ class DashboardController extends Controller
             'filteredDate' => $filteredDate,
             'filteredBookingCount' => $filteredBookingCount,
             'filteredUserCount' => $filteredUserCount,
+            'filteredUserRoleCount' => $filteredUserRoleCount,
             'doctors' => $doctors,
         ]);
     }

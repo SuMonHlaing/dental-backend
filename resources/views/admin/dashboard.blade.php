@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 label: 'Count for {{ $filteredDate }}',
                 data: [
                     {{ $filteredBookingCount }},
-                    {{ $filteredUserCount }}
+                    {{ $filteredUserRoleCount }}
                 ],
                 backgroundColor: [
                     'rgba(23, 162, 184, 0.7)',
